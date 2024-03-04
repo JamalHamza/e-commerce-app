@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Menu from './Menu';
 
 const Header = () => {
   return (
@@ -8,6 +9,7 @@ const Header = () => {
           <Link href='/' className='btn btn-ghost text-lg'>
             E-Commerce
           </Link>
+          <Menu />
         </div>
       </nav>
     </header>
