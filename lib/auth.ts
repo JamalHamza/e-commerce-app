@@ -76,7 +76,6 @@ export const config = {
 }
 
 export const {
-  handlers: { GET, POST },
   auth,
   signIn,
   signOut,
