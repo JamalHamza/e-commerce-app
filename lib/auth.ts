@@ -1,11 +1,11 @@
-import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
+import NextAuth from 'next-auth'
+import CredentialsProvider from 'next-auth/providers/credentials'
 import dbConnect from './dbConnect'
 import UserModel from './models/UserModel'
-import NextAuth from 'next-auth'
 
 export const config = {
-  providers: [
+  providers: [ 
     CredentialsProvider({
       credentials: {
         email: {
@@ -38,6 +38,16 @@ export const config = {
     error: '/signin',
   },
   callbacks: {
+    authorized({request, auth}: any){
+      const protectedPaths = [
+        /\/shipping/
+      ]
+      const pathname = request.nextUrl
+      if(protectedPaths.some(p => p.test(pathname)) ){return !!auth
+}
+      return true
+    },
+
     async jwt({ user, trigger, session, token }: any) {
       if (user) {
         token.user = {
@@ -70,4 +80,4 @@ export const {
   auth,
   signIn,
   signOut,
-} = NextAuth(config)
+} = NextAuth(config) 
